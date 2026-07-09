@@ -52,7 +52,7 @@ def show_login():
     st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
-    *:not(.material-icons):not([class*="material-symbols"]):not([class*="Icon"]):not([class*="icon"]):not([data-testid="InputGlyph"]):not([data-testid="stIcon"]) {
+    *:not([class*="material"]):not([class*="icon"]):not([class*="Icon"]):not([class*="symbol"]):not([class*="Symbol"]):not([data-testid*="Glyph"]):not([data-testid*="Icon"]):not([data-testid*="icon"]) {
         font-family: 'Inter', sans-serif !important;
     }
     .stApp { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
@@ -193,7 +193,7 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* ── Global ── */
-*:not(.material-icons):not([class*="material-symbols"]):not([class*="Icon"]):not([class*="icon"]):not([data-testid="InputGlyph"]):not([data-testid="stIcon"]) {
+*:not([class*="material"]):not([class*="icon"]):not([class*="Icon"]):not([class*="symbol"]):not([class*="Symbol"]):not([data-testid*="Glyph"]):not([data-testid*="Icon"]):not([data-testid*="icon"]) {
     font-family: 'Inter', sans-serif !important;
 }
 
