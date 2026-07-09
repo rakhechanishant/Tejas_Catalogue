@@ -232,6 +232,49 @@ st.markdown("""
     border-color: rgba(255,255,255,0.08) !important;
 }
 
+/* ── Main Page Inputs & Dropdowns styling ── */
+div[data-testid="stSelectbox"] label, div[data-testid="stSlider"] label {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #4a5568 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 6px !important;
+}
+
+div[data-testid="stSelectbox"] > div > div {
+    background: white !important;
+    border: 2px solid #e8ecf1 !important;
+    border-radius: 14px !important;
+    color: #1a1a2e !important;
+    min-height: 44px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
+    transition: all 0.3s ease !important;
+}
+
+div[data-testid="stSelectbox"] > div > div:hover {
+    border-color: #e94560 !important;
+}
+
+div[data-testid="stSelectbox"] * {
+    color: #1a1a2e !important;
+}
+
+div[data-testid="stTextInput"] input {
+    background: white !important;
+    border: 2px solid #e8ecf1 !important;
+    border-radius: 14px !important;
+    color: #1a1a2e !important;
+    min-height: 44px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
+    transition: all 0.3s ease !important;
+}
+
+div[data-testid="stTextInput"] input:focus {
+    border-color: #e94560 !important;
+    box-shadow: 0 2px 12px rgba(233, 69, 96, 0.15) !important;
+}
+
 /* ── Header Banner ── */
 .hero-banner {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
@@ -1083,238 +1126,23 @@ def export_to_excel(df_to_export):
         return csv_str.encode('utf-8'), "text/csv", "csv"
 
 
-with st.sidebar:
-    # Sidebar Header
-    st.markdown("""
-    <div style="text-align: center; padding: 10px 0 20px 0;">
-        <div style="font-size: 32px; font-weight: 900; color: #e94560 !important;
-                    letter-spacing: 1px; margin-bottom: 2px;">TEJAS IMPEX</div>
-        <div style="font-size: 11px; color: rgba(255,255,255,0.35) !important;
-                    letter-spacing: 4px; text-transform: uppercase;">Product Catalog</div>
-    </div>
-    """, unsafe_allow_html=True)
 
-    st.markdown("---")
-
-    # Quick Stats
-    total_count = len(df)
-    categories_count = len(get_unique_sorted(df['category']))
-    companies_count = len(get_unique_sorted(df['company']))
-    avg_price = df[df['mrp'] > 0]['mrp'].mean() if len(df[df['mrp'] > 0]) > 0 else 0
-
-    col_s1, col_s2 = st.columns(2)
-    with col_s1:
-        st.markdown(f"""
-        <div class="sidebar-stat">
-            <div class="sidebar-stat-val">{total_count}</div>
-            <div class="sidebar-stat-lbl">Products</div>
-        </div>
-        """, unsafe_allow_html=True)
-    with col_s2:
-        st.markdown(f"""
-        <div class="sidebar-stat">
-            <div class="sidebar-stat-val">{categories_count}</div>
-            <div class="sidebar-stat-lbl">Categories</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown("---")
-
-    # 🔍 Search
-    st.markdown("##### 🔍 Search Products")
-    if HAS_KEYUP:
-        search = st_keyup(
-            "Search",
-            value=st.session_state.search_term,
-            placeholder="Name, ref code, specs...",
-            label_visibility="collapsed",
-            debounce=250,
-            key="keyup_search_input"
-        )
-    else:
-        search = st.text_input(
-            "Search",
-            value=st.session_state.search_term,
-            placeholder="Name, ref code, specs...",
-            label_visibility="collapsed"
-        )
-    if search != st.session_state.search_term:
-        st.session_state.search_term = search
-        st.session_state.page = 1
-
-    st.markdown("---")
-
-    # 📂 Category Filter
-    categories = get_unique_sorted(df['category'])
-    st.markdown("##### 📂 Category")
-    cat = st.selectbox(
-        "Category", ["All"] + categories,
-        index=(["All"] + categories).index(st.session_state.category) if st.session_state.category in (["All"] + categories) else 0,
-        label_visibility="collapsed"
-    )
-    if cat != st.session_state.category:
-        st.session_state.category = cat
-        st.session_state.sub_category = 'All'
-        st.session_state.page = 1
-
-    # 📁 Sub-Category Filter (dynamic based on selected category)
-    if st.session_state.category != 'All':
-        sub_cats_df = df[df['category'] == st.session_state.category]
-    else:
-        sub_cats_df = df
-    sub_categories = get_unique_sorted(sub_cats_df['sub_category'])
-
-    if sub_categories:
-        st.markdown("##### 📁 Sub-Category")
-        sub_cat = st.selectbox(
-            "Sub-Category", ["All"] + sub_categories,
-            index=(["All"] + sub_categories).index(st.session_state.sub_category) if st.session_state.sub_category in (["All"] + sub_categories) else 0,
-            label_visibility="collapsed"
-        )
-        if sub_cat != st.session_state.sub_category:
-            st.session_state.sub_category = sub_cat
-            st.session_state.page = 1
-
-    # 🏢 Company Filter
-    companies = get_unique_sorted(df['company'])
-    st.markdown("##### 🏢 Company")
-    comp = st.selectbox(
-        "Company", ["All"] + companies,
-        index=(["All"] + companies).index(st.session_state.company) if st.session_state.company in (["All"] + companies) else 0,
-        label_visibility="collapsed"
-    )
-    if comp != st.session_state.company:
-        st.session_state.company = comp
-        st.session_state.page = 1
-
-    # 🎨 Series Filter
-    series_list = get_unique_sorted(df['series'])
-    if series_list:
-        st.markdown("##### 🎨 Series")
-        ser = st.selectbox(
-            "Series", ["All"] + series_list,
-            index=(["All"] + series_list).index(st.session_state.series) if st.session_state.series in (["All"] + series_list) else 0,
-            label_visibility="collapsed"
-        )
-        if ser != st.session_state.series:
-            st.session_state.series = ser
-            st.session_state.page = 1
-
-    st.markdown("---")
-
-    # 💰 Price Range
-    max_price = float(df['mrp'].max()) if df['mrp'].max() > 0 else 100000
-    st.markdown("##### 💰 Price Range (₹)")
-    price_range = st.slider(
-        "Price Range",
-        min_value=0.0,
-        max_value=max_price,
-        value=(0.0, max_price),
-        format="₹%.0f",
-        label_visibility="collapsed"
-    )
-    if price_range != st.session_state.price_range:
-        st.session_state.price_range = price_range
-        st.session_state.page = 1
-
-    st.markdown("---")
-
-    # 🔄 Sort
-    st.markdown("##### 🔄 Sort By")
-    sort_options = ["Name A→Z", "Name Z→A", "Price ↑ Low to High", "Price ↓ High to Low", "Ref Code"]
-    sort = st.selectbox(
-        "Sort By", sort_options,
-        index=sort_options.index(st.session_state.sort_by) if st.session_state.sort_by in sort_options else 0,
-        label_visibility="collapsed"
-    )
-    st.session_state.sort_by = sort
-
-    st.markdown("---")
-
-    # Reset Filters button
-    if st.button("🔄 Reset All Filters", use_container_width=True):
-        for key, val in defaults.items():
-            if key != 'view' and key != 'selected_product':
-                st.session_state[key] = val
-        st.session_state.price_range = (0.0, max_price)
-        st.rerun()
-
-
-filtered = df.copy()
-
-# Search
-if st.session_state.search_term:
-    q = st.session_state.search_term.lower()
-    filtered = filtered[
-        filtered['product_name'].str.lower().str.contains(q, na=False) |
-        filtered['ref_code'].str.lower().str.contains(q, na=False) |
-        filtered['category'].str.lower().str.contains(q, na=False) |
-        filtered['sub_category'].str.lower().str.contains(q, na=False) |
-        filtered['specification'].str.lower().str.contains(q, na=False)
-    ]
-
-# Category
-if st.session_state.category != 'All':
-    filtered = filtered[filtered['category'] == st.session_state.category]
-
-# Sub-Category
-if st.session_state.sub_category != 'All':
-    filtered = filtered[filtered['sub_category'] == st.session_state.sub_category]
-
-# Company
-if st.session_state.company != 'All':
-    filtered = filtered[filtered['company'] == st.session_state.company]
-
-# Series
-if st.session_state.series != 'All':
-    filtered = filtered[filtered['series'] == st.session_state.series]
-
-# Price Range
-p_low, p_high = st.session_state.price_range
-filtered = filtered[(filtered['mrp'] >= p_low) & (filtered['mrp'] <= p_high)]
-
-# Sort
-sort_col = st.session_state.sort_by
-if sort_col == "Name A→Z":
-    filtered = filtered.sort_values('product_name', ascending=True)
-elif sort_col == "Name Z→A":
-    filtered = filtered.sort_values('product_name', ascending=False)
-elif sort_col == "Price ↑ Low to High":
-    filtered = filtered.sort_values('mrp', ascending=True)
-elif sort_col == "Price ↓ High to Low":
-    filtered = filtered.sort_values('mrp', ascending=False)
-elif sort_col == "Ref Code":
-    filtered = filtered.sort_values('ref_code', ascending=True)
-
-# ── Sidebar Additions (Export & Logout) ──
-with st.sidebar:
-    st.markdown("---")
-    st.markdown("##### 📥 Export Data")
-    
-    excel_data, mime_type, file_ext = export_to_excel(filtered)
-    st.download_button(
-        label="📥 Export Filtered List",
-        data=excel_data,
-        file_name=f"TEJAS_IMPEX_Catalog_{datetime.now().strftime('%Y%m%d')}.{file_ext}",
-        mime=mime_type,
-        use_container_width=True
-    )
-    
-    st.markdown("---")
-    if st.button("🔓 Logout", type="secondary", use_container_width=True):
-        st.session_state.authenticated = False
-        st.session_state.view = 'catalog'
-        st.session_state.selected_product = None
-        st.rerun()
 
 if st.session_state.view == 'detail' and st.session_state.selected_product is not None:
     p = st.session_state.selected_product
 
-    # Back button
-    if st.button("← Back to Catalog", type="primary"):
-        st.session_state.view = 'catalog'
-        st.session_state.selected_product = None
-        st.rerun()
+    col_back, col_logout = st.columns([8, 2])
+    with col_back:
+        if st.button("← Back to Catalog", type="primary"):
+            st.session_state.view = 'catalog'
+            st.session_state.selected_product = None
+            st.rerun()
+    with col_logout:
+        if st.button("🔓 Logout", type="secondary", use_container_width=True, key="logout_btn_detail"):
+            st.session_state.authenticated = False
+            st.session_state.view = 'catalog'
+            st.session_state.selected_product = None
+            st.rerun()
 
     # Hero
     st.markdown(f"""
@@ -1436,6 +1264,9 @@ if st.session_state.view == 'detail' and st.session_state.selected_product is no
 
 
 elif st.session_state.view == 'catalog':
+    # ── Stats Calculations ──
+    categories_count = len(get_unique_sorted(df['category']))
+    companies_count = len(get_unique_sorted(df['company']))
 
     # Hero Banner with logos
     logos_html = '<div class="hero-logos">'
@@ -1474,6 +1305,191 @@ elif st.session_state.view == 'catalog':
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+    # ── Top-Bar Filters Grid ──
+    # Row 1: Search, Sort, and Logout
+    col_search, col_sort, col_logout = st.columns([6.5, 2.0, 1.5], gap="small")
+    with col_search:
+        if HAS_KEYUP:
+            search = st_keyup(
+                "Search",
+                value=st.session_state.search_term,
+                placeholder="Search products by name, reference code, specs...",
+                label_visibility="collapsed",
+                debounce=250,
+                key="keyup_search_input"
+            )
+        else:
+            search = st.text_input(
+                "Search",
+                value=st.session_state.search_term,
+                placeholder="Search products by name, reference code, specs...",
+                label_visibility="collapsed",
+                key="text_search_input"
+            )
+        if search != st.session_state.search_term:
+            st.session_state.search_term = search
+            st.session_state.page = 1
+
+    with col_sort:
+        sort_options = ["Name A→Z", "Name Z→A", "Price ↑ Low to High", "Price ↓ High to Low", "Ref Code"]
+        sort = st.selectbox(
+            "Sort By", sort_options,
+            index=sort_options.index(st.session_state.sort_by) if st.session_state.sort_by in sort_options else 0,
+            label_visibility="collapsed",
+            key="sort_selectbox"
+        )
+        st.session_state.sort_by = sort
+
+    with col_logout:
+        if st.button("🔓 Logout", type="secondary", use_container_width=True, key="logout_btn_catalog"):
+            st.session_state.authenticated = False
+            st.session_state.view = 'catalog'
+            st.session_state.selected_product = None
+            st.rerun()
+
+    # Row 2: Categories, Sub-Categories, Companies, Series selectors
+    col_cat, col_sub, col_comp, col_series = st.columns(4, gap="small")
+    
+    with col_cat:
+        categories = get_unique_sorted(df['category'])
+        cat = st.selectbox(
+            "📂 Category", ["All Catalog"] + categories,
+            index=(["All Catalog"] + categories).index("All Catalog" if st.session_state.category == "All" else st.session_state.category) if st.session_state.category in (["All"] + categories) else 0,
+            key="cat_selectbox"
+        )
+        cat_val = "All" if cat == "All Catalog" else cat
+        if cat_val != st.session_state.category:
+            st.session_state.category = cat_val
+            st.session_state.sub_category = 'All'
+            st.session_state.page = 1
+
+    with col_sub:
+        if st.session_state.category != 'All':
+            sub_cats_df = df[df['category'] == st.session_state.category]
+        else:
+            sub_cats_df = df
+        sub_categories = get_unique_sorted(sub_cats_df['sub_category'])
+        sub_cat = st.selectbox(
+            "📁 Sub-Category", ["All Sub-Categories"] + sub_categories,
+            index=(["All Sub-Categories"] + sub_categories).index("All Sub-Categories" if st.session_state.sub_category == "All" else st.session_state.sub_category) if st.session_state.sub_category in (["All"] + sub_categories) else 0,
+            key="sub_cat_selectbox"
+        )
+        sub_cat_val = "All" if sub_cat == "All Sub-Categories" else sub_cat
+        if sub_cat_val != st.session_state.sub_category:
+            st.session_state.sub_category = sub_cat_val
+            st.session_state.page = 1
+
+    with col_comp:
+        companies = get_unique_sorted(df['company'])
+        comp = st.selectbox(
+            "🏢 Brand", ["All Brands"] + companies,
+            index=(["All Brands"] + companies).index("All Brands" if st.session_state.company == "All" else st.session_state.company) if st.session_state.company in (["All"] + companies) else 0,
+            key="company_selectbox"
+        )
+        comp_val = "All" if comp == "All Brands" else comp
+        if comp_val != st.session_state.company:
+            st.session_state.company = comp_val
+            st.session_state.page = 1
+
+    with col_series:
+        series_list = get_unique_sorted(df['series'])
+        series_options = ["All Series"] + series_list if series_list else ["All Series"]
+        ser = st.selectbox(
+            "🎨 Series", series_options,
+            index=series_options.index("All Series" if st.session_state.series == "All" else st.session_state.series) if st.session_state.series in (["All"] + series_list) else 0,
+            key="series_selectbox"
+        )
+        ser_val = "All" if ser == "All Series" else ser
+        if ser_val != st.session_state.series:
+            st.session_state.series = ser_val
+            st.session_state.page = 1
+
+    # Row 3: Price Range Slider, Reset Button, and Export Button
+    col_price, col_reset, col_export = st.columns([6.0, 2.0, 2.0], gap="small")
+    
+    with col_price:
+        max_price = float(df['mrp'].max()) if df['mrp'].max() > 0 else 100000.0
+        curr_low, curr_high = st.session_state.price_range
+        curr_low = float(max(0.0, min(float(curr_low), max_price)))
+        curr_high = float(max(0.0, min(float(curr_high), max_price)))
+        if curr_low > curr_high:
+            curr_low, curr_high = 0.0, max_price
+            
+        price_range = st.slider(
+            "💰 Price Range (₹)",
+            min_value=0.0,
+            max_value=max_price,
+            value=(curr_low, curr_high),
+            format="₹%.0f",
+            key="price_slider"
+        )
+        if price_range != st.session_state.price_range:
+            st.session_state.price_range = (float(price_range[0]), float(price_range[1]))
+            st.session_state.page = 1
+
+    with col_reset:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button("🔄 Reset Filters", use_container_width=True, key="reset_filters_btn"):
+            st.session_state.search_term = ''
+            st.session_state.category = 'All'
+            st.session_state.sub_category = 'All'
+            st.session_state.company = 'All'
+            st.session_state.series = 'All'
+            st.session_state.sort_by = 'Name A→Z'
+            st.session_state.price_range = (0.0, max_price)
+            st.session_state.page = 1
+            st.rerun()
+
+    # ── Apply Filtering Logic ──
+    filtered = df.copy()
+    
+    if st.session_state.search_term:
+        q = st.session_state.search_term.lower()
+        filtered = filtered[
+            filtered['product_name'].str.lower().str.contains(q, na=False) |
+            filtered['ref_code'].str.lower().str.contains(q, na=False) |
+            filtered['category'].str.lower().str.contains(q, na=False) |
+            filtered['sub_category'].str.lower().str.contains(q, na=False) |
+            filtered['specification'].str.lower().str.contains(q, na=False)
+        ]
+        
+    if st.session_state.category != 'All':
+        filtered = filtered[filtered['category'] == st.session_state.category]
+    if st.session_state.sub_category != 'All':
+        filtered = filtered[filtered['sub_category'] == st.session_state.sub_category]
+    if st.session_state.company != 'All':
+        filtered = filtered[filtered['company'] == st.session_state.company]
+    if st.session_state.series != 'All':
+        filtered = filtered[filtered['series'] == st.session_state.series]
+        
+    p_low, p_high = st.session_state.price_range
+    filtered = filtered[(filtered['mrp'] >= p_low) & (filtered['mrp'] <= p_high)]
+    
+    # Sort
+    sort_col = st.session_state.sort_by
+    if sort_col == "Name A→Z":
+        filtered = filtered.sort_values('product_name', ascending=True)
+    elif sort_col == "Name Z→A":
+        filtered = filtered.sort_values('product_name', ascending=False)
+    elif sort_col == "Price ↑ Low to High":
+        filtered = filtered.sort_values('mrp', ascending=True)
+    elif sort_col == "Price ↓ High to Low":
+        filtered = filtered.sort_values('mrp', ascending=False)
+    elif sort_col == "Ref Code":
+        filtered = filtered.sort_values('ref_code', ascending=True)
+
+    with col_export:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        excel_data, mime_type, file_ext = export_to_excel(filtered)
+        st.download_button(
+            label="📥 Export List",
+            data=excel_data,
+            file_name=f"TEJAS_IMPEX_Catalog_{datetime.now().strftime('%Y%m%d')}.{file_ext}",
+            mime=mime_type,
+            use_container_width=True,
+            key="export_btn_catalog"
+        )
 
     # Results bar
     total_results = len(filtered)
