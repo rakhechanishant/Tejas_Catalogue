@@ -1,0 +1,32 @@
+# Secrets / Credentials
+.env
+
+# Large Excel catalogs / local images
+*.xlsx
+*.xls
+**/product_images/
+**/product_images_v2/
+**/product_images_v2/*
+
+# PDF and catalogs
+*.pdf
+
+# Python environment / cached files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+pythonwin/
+E:/anaconda3/
+
+# OS/Editor specific files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Streamlit config
+.streamlit/
