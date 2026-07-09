@@ -1,8 +1,3 @@
-# catalog_app.py
-"""
-TEJAS IMPEX PVT. LTD. — Premium Product Catalog Dashboard
-Rebuilt: Amazon/Flipkart-style interface with glassmorphism design
-"""
 
 import streamlit as st
 import pandas as pd
@@ -21,9 +16,7 @@ try:
 except ImportError:
     HAS_KEYUP = False
 
-# ╔══════════════════════════════════════════════╗
-# ║  CONFIGURATION                               ║
-# ╚══════════════════════════════════════════════╝
+
 
 load_dotenv()
 
@@ -46,9 +39,6 @@ if not SUPABASE_URL or not SUPABASE_KEY:
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# ╔══════════════════════════════════════════════╗
-# ║  AUTHENTICATION                              ║
-# ╚══════════════════════════════════════════════╝
 
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
@@ -188,10 +178,6 @@ def show_login():
 # Gate: show login if not authenticated
 if not st.session_state.authenticated:
     show_login()
-
-# ╔══════════════════════════════════════════════╗
-# ║  PREMIUM CSS                                  ║
-# ╚══════════════════════════════════════════════╝
 
 st.markdown("""
 <style>
@@ -920,9 +906,6 @@ footer { visibility: hidden; }
 </style>
 """, unsafe_allow_html=True)
 
-# ╔══════════════════════════════════════════════╗
-# ║  SESSION STATE                                ║
-# ╚══════════════════════════════════════════════╝
 
 defaults = {
     'view': 'catalog',       # 'catalog' or 'detail'
@@ -941,9 +924,6 @@ for key, val in defaults.items():
     if key not in st.session_state:
         st.session_state[key] = val
 
-# ╔══════════════════════════════════════════════╗
-# ║  DATA LOADING                                 ║
-# ╚══════════════════════════════════════════════╝
 
 @st.cache_data(ttl=300)
 def load_products():
@@ -984,9 +964,6 @@ if df.empty:
     st.warning("⚠️ No products found. Check your Supabase connection.")
     st.stop()
 
-# ╔══════════════════════════════════════════════╗
-# ║  HELPER FUNCTIONS                             ║
-# ╚══════════════════════════════════════════════╝
 
 def format_price(price):
     """Format price with commas (Indian style)."""
@@ -1105,9 +1082,6 @@ def export_to_excel(df_to_export):
         csv_str = export_df.to_csv(index=False)
         return csv_str.encode('utf-8'), "text/csv", "csv"
 
-# ╔══════════════════════════════════════════════╗
-# ║  SIDEBAR FILTERS                              ║
-# ╚══════════════════════════════════════════════╝
 
 with st.sidebar:
     # Sidebar Header
@@ -1265,9 +1239,6 @@ with st.sidebar:
         st.session_state.price_range = (0.0, max_price)
         st.rerun()
 
-# ╔══════════════════════════════════════════════╗
-# ║  FILTER DATA                                  ║
-# ╚══════════════════════════════════════════════╝
 
 filtered = df.copy()
 
@@ -1335,10 +1306,6 @@ with st.sidebar:
         st.session_state.view = 'catalog'
         st.session_state.selected_product = None
         st.rerun()
-
-# ╔══════════════════════════════════════════════╗
-# ║  DETAIL VIEW                                  ║
-# ╚══════════════════════════════════════════════╝
 
 if st.session_state.view == 'detail' and st.session_state.selected_product is not None:
     p = st.session_state.selected_product
@@ -1466,9 +1433,7 @@ if st.session_state.view == 'detail' and st.session_state.selected_product is no
         </div>
         """, unsafe_allow_html=True)
 
-# ╔══════════════════════════════════════════════╗
-# ║  CATALOG VIEW                                 ║
-# ╚══════════════════════════════════════════════╝
+
 
 elif st.session_state.view == 'catalog':
 
@@ -1710,6 +1675,3 @@ elif st.session_state.view == 'catalog':
     </div>
     """, unsafe_allow_html=True)
 
-# ╔══════════════════════════════════════════════╗
-# ║  RUN: streamlit run catalog_app.py            ║
-# ╚══════════════════════════════════════════════╝
