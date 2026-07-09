@@ -52,7 +52,9 @@ def show_login():
     st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
-    * { font-family: 'Inter', sans-serif !important; }
+    *:not(.material-icons):not([class*="material-symbols"]):not([class*="Icon"]):not([class*="icon"]):not([data-testid="InputGlyph"]):not([data-testid="stIcon"]) {
+        font-family: 'Inter', sans-serif !important;
+    }
     .stApp { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
     #MainMenu, header, footer { visibility: hidden; }
     .login-container {
@@ -80,14 +82,21 @@ def show_login():
     }
     div[data-testid="stTextInput"] input {
         background: rgba(255,255,255,0.08) !important;
-        border: 1px solid rgba(255,255,255,0.15) !important;
+        border: 2px solid rgba(255,255,255,0.3) !important;
         color: #fff !important; border-radius: 12px !important;
-        padding: 14px 18px !important; font-size: 15px !important;
+        padding: 14px 18px !important; font-size: 18px !important;
+        font-weight: 600 !important;
     }
-    div[data-testid="stTextInput"] input::placeholder { color: rgba(255,255,255,0.3) !important; }
+    div[data-testid="stTextInput"] input::placeholder { color: rgba(255,255,255,0.65) !important; }
     div[data-testid="stTextInput"] input:focus {
         border-color: #e94560 !important;
-        box-shadow: 0 0 20px rgba(233,69,96,0.2) !important;
+        box-shadow: 0 0 20px rgba(233,69,96,0.4) !important;
+    }
+    div[data-testid="stTextInput"] button {
+        color: rgba(255,255,255,0.85) !important;
+    }
+    div[data-testid="stTextInput"] button:hover {
+        color: #ff6b6b !important;
     }
     .stButton > button {
         width: 100%; background: linear-gradient(135deg, #e94560, #ff6b6b) !important;
@@ -184,7 +193,9 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* ── Global ── */
-* { font-family: 'Inter', sans-serif !important; }
+*:not(.material-icons):not([class*="material-symbols"]):not([class*="Icon"]):not([class*="icon"]):not([data-testid="InputGlyph"]):not([data-testid="stIcon"]) {
+    font-family: 'Inter', sans-serif !important;
+}
 
 .stApp {
     background: linear-gradient(135deg, #f0f2f5 0%, #e8ecf1 50%, #f5f0f0 100%);
@@ -262,17 +273,23 @@ div[data-testid="stSelectbox"] * {
 
 div[data-testid="stTextInput"] input {
     background: white !important;
-    border: 2px solid #e8ecf1 !important;
+    border: 2px solid #cbd5e1 !important;
     border-radius: 14px !important;
-    color: #1a1a2e !important;
+    color: #0f172a !important;
     min-height: 44px !important;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04), inset 0 1px 2px rgba(0,0,0,0.05) !important;
     transition: all 0.3s ease !important;
+}
+div[data-testid="stTextInput"] input::placeholder {
+    color: #64748b !important;
+    font-size: 16px !important;
 }
 
 div[data-testid="stTextInput"] input:focus {
     border-color: #e94560 !important;
-    box-shadow: 0 2px 12px rgba(233, 69, 96, 0.15) !important;
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.25) !important;
 }
 
 /* ── Header Banner ── */
@@ -849,18 +866,23 @@ div[data-testid="stTextInput"] input:focus {
 
 div[data-testid="stTextInput"] input {
     border-radius: 14px !important;
-    border: 2px solid #e8ecf1 !important;
+    border: 2px solid #cbd5e1 !important;
     padding: 12px 20px !important;
-    font-size: 15px !important;
-    color: #1a1a2e !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    color: #0f172a !important;
     transition: all 0.3s ease !important;
     background: white !important;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04), inset 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+div[data-testid="stTextInput"] input::placeholder {
+    color: #64748b !important;
+    font-size: 16px !important;
 }
 
 div[data-testid="stTextInput"] input:focus {
     border-color: #e94560 !important;
-    box-shadow: 0 4px 20px rgba(233,69,96,0.1) !important;
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.25) !important;
 }
 
 /* ── Logo in banner ── */
@@ -1405,6 +1427,28 @@ elif st.session_state.view == 'catalog':
             st.session_state.series = ser_val
             st.session_state.page = 1
 
+    # Callback to safely reset all filters before widgets are instantiated in the subsequent run
+    def reset_filters_callback():
+        max_p = float(df['mrp'].max()) if df['mrp'].max() > 0 else 100000.0
+        st.session_state.search_term = ''
+        st.session_state.category = 'All'
+        st.session_state.sub_category = 'All'
+        st.session_state.company = 'All'
+        st.session_state.series = 'All'
+        st.session_state.sort_by = 'Name A→Z'
+        st.session_state.price_range = (0.0, max_p)
+        st.session_state.page = 1
+        
+        # Safely overwrite widget session state keys prior to script instantiation
+        st.session_state.keyup_search_input = ''
+        st.session_state.text_search_input = ''
+        st.session_state.cat_selectbox = 'All Catalog'
+        st.session_state.sub_cat_selectbox = 'All Sub-Categories'
+        st.session_state.company_selectbox = 'All Brands'
+        st.session_state.series_selectbox = 'All Series'
+        st.session_state.price_slider = (0.0, max_p)
+        st.session_state.sort_selectbox = 'Name A→Z'
+
     # Row 3: Price Range Slider, Reset Button, and Export Button
     col_price, col_reset, col_export = st.columns([6.0, 2.0, 2.0], gap="small")
     
@@ -1430,16 +1474,7 @@ elif st.session_state.view == 'catalog':
 
     with col_reset:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-        if st.button("🔄 Reset Filters", use_container_width=True, key="reset_filters_btn"):
-            st.session_state.search_term = ''
-            st.session_state.category = 'All'
-            st.session_state.sub_category = 'All'
-            st.session_state.company = 'All'
-            st.session_state.series = 'All'
-            st.session_state.sort_by = 'Name A→Z'
-            st.session_state.price_range = (0.0, max_price)
-            st.session_state.page = 1
-            st.rerun()
+        st.button("🔄 Reset Filters", use_container_width=True, key="reset_filters_btn", on_click=reset_filters_callback)
 
     # ── Apply Filtering Logic ──
     filtered = df.copy()
