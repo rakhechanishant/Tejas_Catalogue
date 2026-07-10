@@ -1217,7 +1217,7 @@ if st.session_state.view == 'detail' and st.session_state.selected_product is no
         st.markdown(f"""
         <div class="detail-info-card">
             <div class="detail-badge-row">{tags_html}</div>
-            <div class="detail-price"><span class="cur">₹</span> {format_price(mrp)}</div>
+            <div class="detail-price"><span class="cur">रु</span> {format_price(mrp)}</div>
             <div style="font-size: 13px; color: #2d6a4f; font-weight: 600; margin-bottom: 16px;">
                 ✅ MRP (Inclusive of all taxes)
             </div>
@@ -1461,11 +1461,11 @@ elif st.session_state.view == 'catalog':
             curr_low, curr_high = 0.0, max_price
             
         price_range = st.slider(
-            "💰 Price Range (₹)",
+            "💰 Price Range (रु)",
             min_value=0.0,
             max_value=max_price,
             value=(curr_low, curr_high),
-            format="₹%.0f",
+            format="रु%.0f",
             key="price_slider"
         )
         if price_range != st.session_state.price_range:
@@ -1625,7 +1625,7 @@ elif st.session_state.view == 'catalog':
                             <div class="card-ref">{ref_code}</div>
                             <div class="card-name">{name}</div>
                             <div class="card-price">
-                                <span class="currency">₹</span>{format_price(mrp)}
+                                <span class="currency">रु</span>{format_price(mrp)}
                             </div>
                             <div class="card-tags">{tags}</div>
                             <div class="card-footer">
