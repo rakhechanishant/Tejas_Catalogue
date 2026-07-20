@@ -30,3 +30,6 @@ Thumbs.db
 
 # Streamlit config
 .streamlit/
+
+# AI subagent skills directory
+skills/
