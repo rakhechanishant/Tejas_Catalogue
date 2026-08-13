@@ -274,17 +274,17 @@ div[data-testid="stSelectbox"] * {
 div[data-testid="stTextInput"] input {
     background: white !important;
     border: 2px solid #cbd5e1 !important;
-    border-radius: 14px !important;
+    border-radius: 12px !important;
     color: #0f172a !important;
-    min-height: 44px !important;
-    font-size: 18px !important;
+    min-height: 36px !important;
+    font-size: 15px !important;
     font-weight: 500 !important;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.04), inset 0 1px 2px rgba(0,0,0,0.05) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 2px rgba(0,0,0,0.05) !important;
     transition: all 0.3s ease !important;
 }
 div[data-testid="stTextInput"] input::placeholder {
     color: #64748b !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
 }
 
 div[data-testid="stTextInput"] input:focus {
@@ -292,15 +292,24 @@ div[data-testid="stTextInput"] input:focus {
     box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.25) !important;
 }
 
+/* Reduce top app padding */
+[data-testid="stAppViewContainer"] > section > div:first-child {
+    padding-top: 0.4rem !important;
+}
+div.block-container {
+    padding-top: 0.6rem !important;
+    padding-bottom: 1rem !important;
+}
+
 /* ── Header Banner ── */
 .hero-banner {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    border-radius: 20px;
-    padding: 32px 40px;
-    margin-bottom: 28px;
+    border-radius: 16px;
+    padding: 14px 24px;
+    margin-bottom: 10px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(26, 26, 46, 0.25);
+    box-shadow: 0 6px 24px rgba(26, 26, 46, 0.22);
 }
 
 .hero-banner::before {
@@ -308,8 +317,8 @@ div[data-testid="stTextInput"] input:focus {
     position: absolute;
     top: -60%;
     right: -10%;
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     background: radial-gradient(circle, rgba(233,69,96,0.15) 0%, transparent 70%);
     border-radius: 50%;
 }
@@ -319,8 +328,8 @@ div[data-testid="stTextInput"] input:focus {
     position: absolute;
     bottom: -50%;
     left: 20%;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     background: radial-gradient(circle, rgba(15,52,96,0.3) 0%, transparent 70%);
     border-radius: 50%;
 }
@@ -333,55 +342,56 @@ div[data-testid="stTextInput"] input:focus {
     align-items: center;
 }
 
-.hero-left { display: flex; align-items: center; gap: 20px; }
+.hero-left { display: flex; align-items: center; gap: 14px; }
 
 .hero-logo {
     background: linear-gradient(135deg, #e94560, #ff6b6b);
     color: white;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 900;
-    padding: 14px 22px;
-    border-radius: 16px;
+    padding: 8px 14px;
+    border-radius: 12px;
     letter-spacing: 1px;
-    box-shadow: 0 8px 25px rgba(233,69,96,0.35);
+    box-shadow: 0 4px 14px rgba(233,69,96,0.35);
 }
 
 .hero-title {
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 800;
     color: #ffffff;
     letter-spacing: 0.5px;
+    line-height: 1.2;
 }
 
 .hero-sub {
-    font-size: 14px;
+    font-size: 11px;
     color: rgba(255,255,255,0.55);
     font-weight: 400;
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-top: 4px;
+    margin-top: 2px;
 }
 
 .hero-stats {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     text-align: center;
 }
 
 .hero-stat-value {
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 800;
     color: #ffffff;
     line-height: 1;
 }
 
 .hero-stat-label {
-    font-size: 11px;
+    font-size: 10px;
     color: rgba(255,255,255,0.45);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     font-weight: 600;
-    margin-top: 6px;
+    margin-top: 4px;
 }
 
 .hero-stat-divider {
@@ -393,18 +403,18 @@ div[data-testid="stTextInput"] input:focus {
 /* ── Search Results Bar ── */
 .results-bar {
     background: white;
-    border-radius: 14px;
-    padding: 14px 24px;
-    margin-bottom: 24px;
+    border-radius: 10px;
+    padding: 8px 18px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     border: 1px solid rgba(0,0,0,0.04);
 }
 
 .results-text {
-    font-size: 15px;
+    font-size: 13px;
     color: #6c757d;
     font-weight: 500;
 }
@@ -420,7 +430,7 @@ div[data-testid="stTextInput"] input:focus {
 }
 
 .sort-info {
-    font-size: 13px;
+    font-size: 12px;
     color: #a0aec0;
 }
 
@@ -864,20 +874,24 @@ div[data-testid="stTextInput"] input:focus {
     box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
 }
 
+div[data-testid="stComponentSandbox"] iframe {
+    height: 36px !important;
+}
+
 div[data-testid="stTextInput"] input {
-    border-radius: 14px !important;
+    border-radius: 12px !important;
     border: 2px solid #cbd5e1 !important;
-    padding: 12px 20px !important;
-    font-size: 18px !important;
+    padding: 4px 12px !important;
+    font-size: 13px !important;
     font-weight: 500 !important;
     color: #0f172a !important;
     transition: all 0.3s ease !important;
     background: white !important;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.04), inset 0 1px 2px rgba(0,0,0,0.05) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 2px rgba(0,0,0,0.05) !important;
 }
 div[data-testid="stTextInput"] input::placeholder {
     color: #64748b !important;
-    font-size: 16px !important;
+    font-size: 12px !important;
 }
 
 div[data-testid="stTextInput"] input:focus {
@@ -887,48 +901,48 @@ div[data-testid="stTextInput"] input:focus {
 
 /* ── Logo in banner ── */
 .hero-logo-img {
-    height: 60px;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    height: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     transition: transform 0.4s ease;
     background: white;
-    padding: 6px;
+    padding: 4px;
 }
 
 .hero-logo-img:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 .hero-logos {
     display: flex;
-    gap: 14px;
+    gap: 10px;
     align-items: center;
 }
 
 /* Sleek styling for Expander */
 div[data-testid="stExpander"] {
     background: white !important;
-    border-radius: 16px !important;
+    border-radius: 12px !important;
     border: 2px solid #cbd5e1 !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.04) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
     overflow: hidden !important;
-    margin-bottom: 20px !important;
+    margin-bottom: 10px !important;
     transition: all 0.3s ease !important;
 }
 div[data-testid="stExpander"]:hover {
     border-color: #a0aec0 !important;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.06) !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06) !important;
 }
 div[data-testid="stExpander"] [data-testid="stExpanderDetails"] {
     background: #f8f9fa !important;
-    padding: 24px 20px !important;
+    padding: 14px 16px !important;
     border-top: 1px solid #e8ecf1 !important;
 }
 div[data-testid="stExpander"] summary {
     font-weight: 700 !important;
-    font-size: 15px !important;
+    font-size: 13px !important;
     color: #1a1a2e !important;
-    padding: 12px 18px !important;
+    padding: 8px 14px !important;
     transition: all 0.3s ease !important;
     background: #ffffff !important;
 }
@@ -1003,7 +1017,111 @@ footer { visibility: hidden; }
     color: white !important;
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2) !important;
 }
+
+/* ── Custom scrollbars ── */
+div.main::-webkit-scrollbar {
+    width: 10px !important;
+    height: 10px !important;
+    display: block !important;
+}
+div.main::-webkit-scrollbar-track {
+    background: #f1f2f5 !important;
+}
+div.main::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+    border-radius: 5px !important;
+    border: 2px solid #f1f2f5 !important;
+}
+div.main::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
+}
 </style>
+
+<!-- Floating Go to Top Button -->
+<div id="scroll-to-top-container">
+    <button id="goToTopBtn" title="Go to Top" style="
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 999999;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #e94560;
+        color: white;
+        border: none;
+        box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        opacity: 0.8;
+    ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+</div>
+
+<script>
+    (function() {
+        const doc = window.parent.document;
+        const initScrollBtn = () => {
+            const mainEl = doc.querySelector('.main');
+            if (!mainEl) {
+                setTimeout(initScrollBtn, 100);
+                return;
+            }
+            
+            let btn = doc.getElementById('goToTopBtn');
+            if (!btn) {
+                const container = doc.createElement('div');
+                container.id = 'scroll-to-top-container';
+                
+                const newBtn = doc.createElement('button');
+                newBtn.id = 'goToTopBtn';
+                newBtn.innerHTML = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"18 15 12 9 6 15\"></polyline></svg>';
+                newBtn.style.cssText = 'position:fixed; bottom:30px; right:30px; z-index:999999; width:48px; height:48px; border-radius:50%; background:#e94560; color:white; border:none; box-shadow:0 4px 15px rgba(233, 69, 96, 0.4); cursor:pointer; display:none; align-items:center; justify-content:center; transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); opacity:0.8; outline:none;';
+                
+                newBtn.onmouseover = function() {
+                    newBtn.style.transform = 'translateY(-4px) scale(1.05)';
+                    newBtn.style.opacity = '1';
+                    newBtn.style.boxShadow = '0 6px 20px rgba(233, 69, 96, 0.6)';
+                    newBtn.style.background = '#ff6b6b';
+                };
+                newBtn.onmouseout = function() {
+                    newBtn.style.transform = 'none';
+                    newBtn.style.opacity = '0.8';
+                    newBtn.style.boxShadow = '0 4px 15px rgba(233, 69, 96, 0.4)';
+                    newBtn.style.background = '#e94560';
+                };
+                newBtn.onclick = function() {
+                    mainEl.scrollTo({top: 0, behavior: 'smooth'});
+                };
+                container.appendChild(newBtn);
+                doc.body.appendChild(container);
+                btn = newBtn;
+            }
+            
+            mainEl.removeEventListener('scroll', mainEl._scrollSpyHandler);
+            mainEl._scrollSpyHandler = function() {
+                if (mainEl.scrollTop > 300) {
+                    btn.style.display = 'flex';
+                } else {
+                    btn.style.display = 'none';
+                }
+            };
+            mainEl.addEventListener('scroll', mainEl._scrollSpyHandler);
+        };
+        
+        if (doc.readyState === 'complete' || doc.readyState === 'interactive') {
+            initScrollBtn();
+        } else {
+            doc.addEventListener('DOMContentLoaded', initScrollBtn);
+        }
+    })();
+</script>
 """, unsafe_allow_html=True)
 
 
@@ -1018,6 +1136,7 @@ defaults = {
     'series': 'All',
     'sort_by': 'Name A→Z',
     'price_range': (0, 100000),
+    'selected_products': set(),  # set of product ids selected for bulk share
 }
 
 for key, val in defaults.items():
@@ -1063,6 +1182,15 @@ with st.spinner('Loading catalog...'):
 if df.empty:
     st.warning("⚠️ No products found. Check your Supabase connection.")
     st.stop()
+
+
+def make_toggle(pid, key):
+    def toggle_cb():
+        if st.session_state.get(key):
+            st.session_state.selected_products.add(pid)
+        else:
+            st.session_state.selected_products.discard(pid)
+    return toggle_cb
 
 
 def format_price(price):
@@ -1122,24 +1250,332 @@ def format_spec_html(spec_text):
 def get_whatsapp_share_url(product):
     """Generate a clean, professional WhatsApp share URL."""
     name = product.get('product_name', 'Unknown')
-    ref = product.get('ref_code', '—')
+    spec_text = product.get('specification', '')
+    ref = product.get('ref_code', '-')
     mrp = product.get('mrp', 0)
-    category = product.get('category', '')
-    brand = product.get('company', '')
+
+    message = f"*Product:* {name}\n"
     
-    message = (
-        "*TEJAS IMPEX PVT. LTD. | PRODUCT PROFILE*\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"■ *Product Name:* {name}\n"
-        f"■ *Model Reference:* {ref}\n"
-        f"■ *Category:* {category}\n"
-        f"■ *Brand / Company:* {brand}\n"
-        f"■ *MRP:* NPR {mrp:,.2f} (Incl. of all taxes)\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-        "🌐 *View catalog at:* http://localhost:8501"
+    if spec_text and str(spec_text).strip():
+        message += f"*Specs:* {str(spec_text).strip()}\n"
+        
+    message += (
+        f"*Model Number:* {ref}\n"
+        f"*MRP:* Rs. {mrp:,.2f}\n"
     )
-    encoded_message = urllib.parse.quote(message)
+
+    encoded_message = urllib.parse.quote(message.strip())
     return f"https://wa.me/?text={encoded_message}"
+
+def generate_pdf_report(products_list):
+    """Generate a structured PDF for selected products using fpdf2.
+    Draw order per card: background fill → accent bar → image → text (so nothing covers text).
+    """
+
+    def safe_text(s):
+        """Replace characters outside Latin-1 so Helvetica does not crash."""
+        if not s:
+            return ''
+        return ''.join(c if ord(c) < 256 else '?' for c in str(s))
+
+    try:
+        from fpdf import FPDF
+        import urllib.request
+        import tempfile, os
+
+        # ── Layout constants ──────────────────────────────────────
+        MARGIN      = 10      # left/right page margin (mm)
+        PAGE_W      = 190     # usable width  (210 - 2*10)
+        IMG_X       = MARGIN + 4          # image left edge
+        IMG_W       = 48      # image column width (mm)
+        TEXT_X      = IMG_X + IMG_W + 5   # text column start
+        TEXT_W      = PAGE_W - IMG_W - 12 # text column width
+        CARD_H      = 58      # fixed card height (mm)
+        IMG_H       = CARD_H - 6          # image height inside card
+        CARD_GAP    = 5       # vertical gap between cards
+
+        class PDF(FPDF):
+            def header(self):
+                # Dark navy header bar
+                self.set_fill_color(26, 26, 46)
+                self.rect(0, 0, 210, 20, 'F')
+                # Company name
+                self.set_font('Helvetica', 'B', 14)
+                self.set_text_color(255, 255, 255)
+                self.set_xy(0, 4)
+                self.cell(150, 8, 'TEJAS IMPEX PVT. LTD.', align='L', border=0)
+                # Subtitle
+                self.set_font('Helvetica', '', 8)
+                self.set_text_color(180, 190, 220)
+                self.set_xy(0, 13)
+                self.cell(150, 5, 'Product Catalog Report', align='L', border=0)
+                # Date on right
+                from datetime import date
+                self.set_font('Helvetica', '', 8)
+                self.set_text_color(200, 210, 230)
+                self.set_xy(140, 8)
+                self.cell(60, 6, date.today().strftime('%d %B %Y'), align='R', border=0)
+                self.set_text_color(0, 0, 0)
+                self.ln(5)
+
+            def footer(self):
+                self.set_y(-12)
+                self.set_font('Helvetica', 'I', 8)
+                self.set_text_color(150, 150, 150)
+                self.cell(0, 8,
+                    f'Page {self.page_no()} | tejasimpex2023@gmail.com | +977-9801986465 | Teku, Kathmandu',
+                    align='C', border=0)
+
+        pdf = PDF()
+        pdf.set_auto_page_break(auto=False)   # we handle page breaks manually
+        pdf.set_margins(MARGIN, 24, MARGIN)
+        pdf.add_page()
+
+        TOP_Y   = 26   # first card starts below header
+        BOTTOM_Y = 282  # page bottom limit (A4 = 297mm minus footer)
+
+        cur_y = TOP_Y
+
+        for idx, p in enumerate(products_list):
+            import textwrap
+            # ── Collect + sanitise data ──────────────────────────
+            name     = safe_text(p.get('product_name', 'Unknown'))
+            ref      = safe_text(p.get('ref_code', '-'))
+            brand    = safe_text(p.get('company', ''))
+            series   = safe_text(p.get('series', ''))
+            category = safe_text(p.get('category', ''))
+            sub_cat  = safe_text(p.get('sub_category', ''))
+            spec     = safe_text(p.get('specification', ''))
+            mrp      = p.get('mrp', 0)
+            pcs      = p.get('packing_pcs', 0)
+            bx       = p.get('packing_bx', 0)
+            image_url = p.get('image_url', '')
+
+            # Parse spec into multiple wrapped lines
+            spec_lines = []
+            if spec and str(spec).strip():
+                for line in str(spec).strip().split('\n'):
+                    line = line.strip()
+                    if line:
+                        wrapped = textwrap.wrap(line, width=70)
+                        spec_lines.extend(wrapped)
+
+            # Calculate dynamic card height
+            n_spec_lines = len(spec_lines)
+            spec_section_h = n_spec_lines * 4.5
+            
+            # Dynamic calculation of text height before specification and packing
+            name_lines = 2 if len(name) > 38 else 1
+            non_spec_h = 5 + (name_lines * 6) + 3 + 6 + 6  # margins + name + divider + ref + category
+            if pcs or bx:
+                non_spec_h += 6  # include packing spacing
+                
+            card_h = max(55, non_spec_h + spec_section_h + 17) # 17mm buffer for MRP badge & margin
+            img_h = card_h - 6
+
+            # ── Page-break check ────────────────────────────────
+            if cur_y + card_h > BOTTOM_Y:
+                pdf.add_page()
+                cur_y = TOP_Y
+
+            # ── 1. Draw card background (FIRST) ─────────────────
+            pdf.set_fill_color(248, 249, 252)
+            pdf.set_draw_color(220, 226, 238)
+            pdf.set_line_width(0.3)
+            pdf.rect(MARGIN, cur_y, PAGE_W, card_h, style='FD')
+
+            # ── 2. Red accent bar on left ────────────────────────
+            pdf.set_fill_color(233, 69, 96)
+            pdf.rect(MARGIN, cur_y, 3, card_h, style='F')
+
+            # ── 3. Serial number chip (top-right corner) ─────────
+            pdf.set_fill_color(26, 26, 46)
+            pdf.rect(MARGIN + PAGE_W - 14, cur_y + 2, 12, 7, style='F')
+            pdf.set_font('Helvetica', 'B', 7)
+            pdf.set_text_color(255, 255, 255)
+            pdf.set_xy(MARGIN + PAGE_W - 14, cur_y + 2)
+            pdf.cell(12, 7, f'#{idx+1:02d}', align='C', border=0)
+
+            # ── 4. Fetch & draw image (SECOND) ───────────────────
+            img_placed = False
+            if image_url and str(image_url).strip():
+                try:
+                    url_lower = image_url.lower()
+                    suffix = '.png' if '.png' in url_lower else \
+                             '.webp' if '.webp' in url_lower else '.jpg'
+                    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+                    urllib.request.urlretrieve(image_url, tmp.name)
+                    tmp.close()
+                    # White image bg
+                    pdf.set_fill_color(255, 255, 255)
+                    pdf.rect(IMG_X, cur_y + 3, IMG_W, img_h, style='F')
+                    pdf.image(tmp.name, x=IMG_X + 1, y=cur_y + 4, w=IMG_W - 2, h=img_h - 2)
+                    os.unlink(tmp.name)
+                    img_placed = True
+                except Exception:
+                    pass
+
+            if not img_placed:
+                # Grey placeholder
+                pdf.set_fill_color(230, 232, 238)
+                pdf.rect(IMG_X, cur_y + 3, IMG_W, img_h, style='F')
+                pdf.set_font('Helvetica', '', 8)
+                pdf.set_text_color(160, 165, 180)
+                pdf.set_xy(IMG_X, cur_y + 3 + img_h/2 - 3)
+                pdf.cell(IMG_W, 6, 'No Image', align='C', border=0)
+
+            # ── 5. Write text (THIRD – always visible over bg) ───
+            ty = cur_y + 5  # text top
+
+            # Product name (bold, wraps up to 2 lines)
+            pdf.set_font('Helvetica', 'B', 11)
+            pdf.set_text_color(26, 26, 46)
+            pdf.set_xy(TEXT_X, ty)
+            # Truncate name to avoid overflow
+            max_name = name[:72] + ('...' if len(name) > 72 else '')
+            pdf.multi_cell(TEXT_W - 14, 6, max_name, border=0, align='L')
+            ty = pdf.get_y() + 1
+
+            # ── Divider line ──────────────────────────────────────
+            pdf.set_draw_color(200, 210, 230)
+            pdf.set_line_width(0.2)
+            pdf.line(TEXT_X, ty, TEXT_X + TEXT_W - 14, ty)
+            ty += 3
+
+            # Row: Ref + Brand
+            pdf.set_font('Helvetica', 'B', 8)
+            pdf.set_text_color(90, 100, 130)
+            pdf.set_xy(TEXT_X, ty)
+            pdf.cell(22, 5, 'Ref Code:', border=0)
+            pdf.set_font('Helvetica', '', 8)
+            pdf.set_text_color(40, 50, 80)
+            pdf.cell(TEXT_W/2 - 22, 5, ref, border=0)
+            pdf.set_font('Helvetica', 'B', 8)
+            pdf.set_text_color(90, 100, 130)
+            pdf.cell(18, 5, 'Brand:', border=0)
+            pdf.set_font('Helvetica', '', 8)
+            pdf.set_text_color(40, 50, 80)
+            pdf.cell(TEXT_W/2 - 18, 5, brand, border=0)
+            ty += 6
+
+            # Row: Category + Series
+            pdf.set_font('Helvetica', 'B', 8)
+            pdf.set_text_color(90, 100, 130)
+            pdf.set_xy(TEXT_X, ty)
+            pdf.cell(22, 5, 'Category:', border=0)
+            pdf.set_font('Helvetica', '', 8)
+            pdf.set_text_color(40, 50, 80)
+            cat_str = category + (f' > {sub_cat}' if sub_cat else '')
+            pdf.cell(TEXT_W/2 - 22, 5, cat_str[:38], border=0)
+            pdf.set_font('Helvetica', 'B', 8)
+            pdf.set_text_color(90, 100, 130)
+            pdf.cell(18, 5, 'Series:', border=0)
+            pdf.set_font('Helvetica', '', 8)
+            pdf.set_text_color(40, 50, 80)
+            pdf.cell(TEXT_W/2 - 18, 5, series[:30], border=0)
+            ty += 6
+
+            # Row: Specifications (multiple lines)
+            if spec_lines:
+                pdf.set_font('Helvetica', 'B', 8)
+                pdf.set_text_color(90, 100, 130)
+                pdf.set_xy(TEXT_X, ty)
+                pdf.cell(22, 4, 'Spec:', border=0)
+                
+                pdf.set_font('Helvetica', '', 8)
+                pdf.set_text_color(60, 70, 100)
+                for sline in spec_lines:
+                    pdf.set_xy(TEXT_X + 22, ty)
+                    pdf.cell(TEXT_W - 22, 4, sline, border=0)
+                    ty += 4.5
+                ty += 1.5
+
+            # Row: Packing
+            packing_str = ''
+            if pcs:
+                packing_str += f'{pcs} pcs/unit'
+            if bx:
+                packing_str += f'   {bx} units/box'
+            if packing_str:
+                pdf.set_font('Helvetica', 'B', 8)
+                pdf.set_text_color(90, 100, 130)
+                pdf.set_xy(TEXT_X, ty)
+                pdf.cell(22, 5, 'Packing:', border=0)
+                pdf.set_font('Helvetica', '', 8)
+                pdf.set_text_color(40, 50, 80)
+                pdf.cell(TEXT_W - 22, 5, packing_str, border=0)
+                ty += 6
+
+            # ── MRP badge at bottom of card ───────────────────────
+            mrp_y = cur_y + card_h - 13
+            # Red pill background
+            pdf.set_fill_color(233, 69, 96)
+            pdf.rect(TEXT_X, mrp_y, 55, 9, style='F', round_corners=True, corner_radius=2.0)
+            pdf.set_font('Helvetica', 'B', 10)
+            pdf.set_text_color(255, 255, 255)
+            pdf.set_xy(TEXT_X + 2, mrp_y + 1)
+            pdf.cell(51, 7, f'MRP: Rs. {mrp:,.2f}', align='C', border=0)
+
+            # Tax note
+            pdf.set_font('Helvetica', 'I', 7)
+            pdf.set_text_color(120, 130, 160)
+            pdf.set_xy(TEXT_X + 58, mrp_y + 2)
+            pdf.cell(50, 5, 'Incl. all taxes', border=0)
+
+            # ── Advance Y ────────────────────────────────────────
+            cur_y += card_h + CARD_GAP
+
+        # ── Output ───────────────────────────────────────────────
+        pdf_bytes = pdf.output()
+        return bytes(pdf_bytes)
+
+    except ImportError:
+        # Fallback HTML
+        rows = ""
+        for p in products_list:
+            name      = p.get('product_name', 'Unknown')
+            ref       = p.get('ref_code', '-')
+            mrp       = p.get('mrp', 0)
+            category  = p.get('category', '')
+            sub_cat   = p.get('sub_category', '')
+            brand     = p.get('company', '')
+            series    = p.get('series', '')
+            spec      = p.get('specification', '')
+            pcs       = p.get('packing_pcs', 0)
+            bx        = p.get('packing_bx', 0)
+            image_url = p.get('image_url', '')
+            img_html  = f'<img src="{image_url}" style="width:130px;height:auto;object-fit:contain;border-radius:8px;" />' if image_url else ''
+            pack      = (f'{pcs} pcs' + (f' | {bx}/box' if bx else '')) if pcs else ''
+            rows += f"""
+            <tr style="border-bottom:2px solid #e8ecf4;">
+              <td style="padding:14px;width:150px;vertical-align:top;">{img_html}</td>
+              <td style="padding:14px;vertical-align:top;">
+                <div style="font-size:16px;font-weight:700;color:#1a1a2e;margin-bottom:6px;">{name}</div>
+                <table style="font-size:12px;color:#555;border-collapse:collapse;">
+                  <tr><td style="padding:2px 8px 2px 0;font-weight:600;color:#888;">Ref Code</td><td style="padding:2px;">{ref}</td>
+                      <td style="padding:2px 8px 2px 12px;font-weight:600;color:#888;">Brand</td><td style="padding:2px;">{brand}</td></tr>
+                  <tr><td style="padding:2px 8px 2px 0;font-weight:600;color:#888;">Category</td><td style="padding:2px;">{category}{(' > ' + sub_cat) if sub_cat else ''}</td>
+                      <td style="padding:2px 8px 2px 12px;font-weight:600;color:#888;">Series</td><td style="padding:2px;">{series}</td></tr>
+                  {'<tr><td style="padding:2px 8px 2px 0;font-weight:600;color:#888;">Spec</td><td colspan=3 style="padding:2px;">' + spec[:120] + '</td></tr>' if spec else ''}
+                  {'<tr><td style="padding:2px 8px 2px 0;font-weight:600;color:#888;">Packing</td><td colspan=3 style="padding:2px;">' + pack + '</td></tr>' if pack else ''}
+                </table>
+                <div style="margin-top:10px;display:inline-block;background:#e94560;color:white;
+                     font-size:15px;font-weight:700;padding:6px 16px;border-radius:6px;">
+                  Rs. {mrp:,.2f} <span style="font-size:10px;font-weight:400;opacity:.85">incl. taxes</span>
+                </div>
+              </td>
+            </tr>"""
+        html = (
+            "<!DOCTYPE html><html><head><meta charset='utf-8'>"
+            "<style>body{font-family:Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;}"
+            "h1{background:#1a1a2e;color:white;padding:16px 24px;border-radius:10px;margin-bottom:20px;}"
+            "table.main{width:100%;border-collapse:collapse;}</style></head>"
+            f"<body><h1>TEJAS IMPEX PVT. LTD. &mdash; Product Catalog</h1>"
+            f"<table class='main'>{rows}</table></body></html>"
+        )
+        return html.encode('utf-8')
+
+
 
 def export_to_excel(df_to_export):
     """Format catalog columns and export as Excel binary data (fallback to CSV if openpyxl lacks)."""
@@ -1355,7 +1791,7 @@ elif st.session_state.view == 'catalog':
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Top Search Input (Full Width) ──
+    # ── Top Search Input (Full Width Layout) ──
     if HAS_KEYUP:
         search = st_keyup(
             "Search",
@@ -1559,15 +1995,81 @@ elif st.session_state.view == 'catalog':
         active_filters.append(f'"{st.session_state.search_term}"')
 
     filter_text = " in " + ", ".join(active_filters) if active_filters else ""
+    n_selected = len(st.session_state.selected_products)
+
+    # Pre-build selected badge to avoid broken f-string HTML
+    selected_badge = ''
+    if n_selected:
+        selected_badge = f'  &bull;  <span style="color:#e94560;font-weight:700;">{n_selected} selected</span>'
 
     st.markdown(f"""
     <div class="results-bar">
         <div class="results-text">
-            Showing <span class="results-accent">{total_results}</span> products{filter_text}
+            Showing <span class="results-accent">{total_results}</span> products{filter_text}{selected_badge}
         </div>
         <div class="sort-info">Sorted by: {st.session_state.sort_by}</div>
     </div>
     """, unsafe_allow_html=True)
+
+    # ── Bulk Share Controls (shown when items are selected) ──
+    if n_selected > 0:
+        sel_col1, sel_col2, sel_col3 = st.columns([2.5, 2.5, 1.5])
+        with sel_col1:
+            st.markdown(
+                f'<div style="padding:6px 0;font-size:13px;color:#1a1a2e;font-weight:600;">'
+                f'📋 {n_selected} product(s) selected</div>',
+                unsafe_allow_html=True
+            )
+        with sel_col2:
+            # Build list of selected product dicts
+            sel_products = []
+            for pid in st.session_state.selected_products:
+                matches = df[df['id'] == pid]
+                if not matches.empty:
+                    sel_products.append(matches.iloc[0].to_dict())
+
+            sel_ids_key = ",".join(sorted(str(pid) for pid in st.session_state.selected_products))
+            pdf_ready_key = st.session_state.get('pdf_ready_key', '')
+
+            if pdf_ready_key != sel_ids_key:
+                if st.button(f"⚙️ Prepare PDF ({n_selected} items)", key="prep_pdf_btn", use_container_width=True):
+                    with st.spinner("Preparing PDF layout..."):
+                        try:
+                            pdf_bytes = generate_pdf_report(sel_products)
+                            st.session_state.pdf_ready_bytes = pdf_bytes
+                            st.session_state.pdf_ready_ext = "pdf"
+                            st.session_state.pdf_ready_mime = "application/pdf"
+                        except Exception as e:
+                            # Fallback HTML on any error
+                            rows_fb = ""
+                            for p in sel_products:
+                                nm = p.get('product_name', '')
+                                rf = p.get('ref_code', '')
+                                pr = p.get('mrp', 0)
+                                img = p.get('image_url', '')
+                                img_tag = f'<img src="{img}" style="width:100px;height:auto;"/>' if img else ''
+                                rows_fb += f'<tr><td style="padding:8px;">{img_tag}</td><td style="padding:8px;"><b>{nm}</b><br>Ref: {rf}<br>Rs. {pr:,.2f}</td></tr>'
+                            html_fb = f'<html><body style="font-family:sans-serif"><h2>TEJAS IMPEX PVT. LTD.</h2><table border="0" cellspacing="8">{rows_fb}</table></body></html>'
+                            st.session_state.pdf_ready_bytes = html_fb.encode('utf-8')
+                            st.session_state.pdf_ready_ext = "html"
+                            st.session_state.pdf_ready_mime = "text/html"
+                        st.session_state.pdf_ready_key = sel_ids_key
+                        st.rerun()
+            else:
+                st.download_button(
+                    label=f"📥 Download PDF ({n_selected} items)",
+                    data=st.session_state.pdf_ready_bytes,
+                    file_name=f"TEJAS_IMPEX_Selected_{datetime.now().strftime('%Y%m%d_%H%M')}.{st.session_state.pdf_ready_ext}",
+                    mime=st.session_state.pdf_ready_mime,
+                    use_container_width=True,
+                    key="bulk_pdf_download"
+                )
+        with sel_col3:
+            if st.button("✖ Clear Selection", key="clear_sel_btn", use_container_width=True):
+                st.session_state.selected_products = set()
+                if 'pdf_ready_key' in st.session_state:
+                    del st.session_state.pdf_ready_key
+                st.rerun()
 
     # ── Pagination Setup removed: listing all items ──
     page_data = filtered
@@ -1647,27 +2149,40 @@ elif st.session_state.view == 'catalog':
                     </div>
                     """, unsafe_allow_html=True)
 
-                    # Streamlit buttons for Details & WhatsApp Share side-by-side
-                    col_btn1, col_btn2 = st.columns([1.2, 1])
+                    # 3-column button row: Details | Share | Select checkbox
+                    prod_id = product.get('id')
+                    is_selected = prod_id in st.session_state.selected_products
+                    col_btn1, col_btn2, col_btn3 = st.columns([1.2, 1.0, 0.6])
+
                     with col_btn1:
-                        if st.button("🔎 Details", key=f"view_{product.get('id', idx)}", use_container_width=True):
+                        if st.button("\U0001f50e Details", key=f"view_{prod_id}", use_container_width=True):
                             st.session_state.selected_product = product.to_dict()
                             st.session_state.view = 'detail'
                             st.rerun()
+
                     with col_btn2:
                         wa_url = get_whatsapp_share_url(product)
                         st.markdown(f"""
-                        <a href="{wa_url}" target="_blank" style="text-decoration: none;">
-                            <button class="card-wa-btn" style="
-                                width: 100%; height: 38px; display: flex; align-items: center;
-                                justify-content: center; gap: 4px; border-radius: 12px;
-                                font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer;
-                                transition: all 0.3s ease; box-sizing: border-box; margin: 0;
-                            ">
-                                📲 Share
-                            </button>
+                        <a href="{wa_url}" target="_blank" style="text-decoration:none;display:block;">
+                            <button style="
+                                width:100%;height:38px;display:flex;align-items:center;
+                                justify-content:center;gap:4px;border-radius:10px;
+                                background:#25D366;color:white;border:none;
+                                font-family:'Inter',sans-serif;font-size:13px;
+                                font-weight:600;cursor:pointer;
+                                transition:all 0.2s ease;box-sizing:border-box;
+                            ">\U0001f4f2 Share</button>
                         </a>
                         """, unsafe_allow_html=True)
+
+                    with col_btn3:
+                        st.checkbox(
+                            "Select",
+                            value=is_selected,
+                            key=f"chk_{prod_id}",
+                            label_visibility="collapsed",
+                            on_change=make_toggle(prod_id, f"chk_{prod_id}")
+                        )
 
 
 
