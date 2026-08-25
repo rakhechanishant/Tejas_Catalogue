@@ -1268,7 +1268,8 @@ def get_whatsapp_share_url(product):
     return f"https://wa.me/?text={encoded_message}"
 
 def generate_pdf_report(products_list):
-    """Generate a structured PDF for selected products using fpdf2.
+    """Generate a structured PDF for selected products using fpdf2 in a 1-column layout 
+    with exactly 3 items evenly spaced per page to eliminate blank space.
     Draw order per card: background fill → accent bar → image → text (so nothing covers text).
     """
 
@@ -1290,41 +1291,31 @@ def generate_pdf_report(products_list):
         IMG_W       = 48      # image column width (mm)
         TEXT_X      = IMG_X + IMG_W + 5   # text column start
         TEXT_W      = PAGE_W - IMG_W - 12 # text column width
-        CARD_H      = 58      # fixed card height (mm)
+        
+        # 3 items per page evenly
+        # Usable height = 297 - 26 (TOP_Y) - 15 (bottom leeway) = ~256
+        # 3 items * cardia_height + 2 gap = 256
+        # -> Card h = 82, gap = 5 -> 246 + 10 = 256
+        CARD_H      = 82      
         IMG_H       = CARD_H - 6          # image height inside card
-        CARD_GAP    = 5       # vertical gap between cards
+        CARD_GAP    = 4       # vertical gap between cards
 
         class PDF(FPDF):
             def header(self):
                 # Dark navy header bar
                 self.set_fill_color(26, 26, 46)
                 self.rect(0, 0, 210, 20, 'F')
-                # Company name
-                self.set_font('Helvetica', 'B', 14)
+                
+                # Product Details Title
+                self.set_font('Helvetica', 'B', 16)
                 self.set_text_color(255, 255, 255)
-                self.set_xy(0, 4)
-                self.cell(150, 8, 'TEJAS IMPEX PVT. LTD.', align='L', border=0)
-                # Subtitle
-                self.set_font('Helvetica', '', 8)
-                self.set_text_color(180, 190, 220)
-                self.set_xy(0, 13)
-                self.cell(150, 5, 'Product Catalog Report', align='L', border=0)
-                # Date on right
-                from datetime import date
-                self.set_font('Helvetica', '', 8)
-                self.set_text_color(200, 210, 230)
-                self.set_xy(140, 8)
-                self.cell(60, 6, date.today().strftime('%d %B %Y'), align='R', border=0)
+                self.set_xy(10, 6)
+                self.cell(100, 8, 'PRODUCT DETAILS', align='L', border=0)
                 self.set_text_color(0, 0, 0)
                 self.ln(5)
 
             def footer(self):
-                self.set_y(-12)
-                self.set_font('Helvetica', 'I', 8)
-                self.set_text_color(150, 150, 150)
-                self.cell(0, 8,
-                    f'Page {self.page_no()} | tejasimpex2023@gmail.com | +977-9801986465 | Teku, Kathmandu',
-                    align='C', border=0)
+                pass
 
         pdf = PDF()
         pdf.set_auto_page_break(auto=False)   # we handle page breaks manually
@@ -1332,12 +1323,16 @@ def generate_pdf_report(products_list):
         pdf.add_page()
 
         TOP_Y   = 26   # first card starts below header
-        BOTTOM_Y = 282  # page bottom limit (A4 = 297mm minus footer)
-
         cur_y = TOP_Y
 
         for idx, p in enumerate(products_list):
             import textwrap
+            
+            # Enforce exactly 3 items per page
+            if idx > 0 and idx % 3 == 0:
+                pdf.add_page()
+                cur_y = TOP_Y
+
             # ── Collect + sanitise data ──────────────────────────
             name     = safe_text(p.get('product_name', 'Unknown'))
             ref      = safe_text(p.get('ref_code', '-'))
@@ -1360,23 +1355,9 @@ def generate_pdf_report(products_list):
                         wrapped = textwrap.wrap(line, width=70)
                         spec_lines.extend(wrapped)
 
-            # Calculate dynamic card height
-            n_spec_lines = len(spec_lines)
-            spec_section_h = n_spec_lines * 4.5
-            
-            # Dynamic calculation of text height before specification and packing
-            name_lines = 2 if len(name) > 38 else 1
-            non_spec_h = 5 + (name_lines * 6) + 3 + 6 + 6  # margins + name + divider + ref + category
-            if pcs or bx:
-                non_spec_h += 6  # include packing spacing
-                
-            card_h = max(55, non_spec_h + spec_section_h + 17) # 17mm buffer for MRP badge & margin
-            img_h = card_h - 6
-
-            # ── Page-break check ────────────────────────────────
-            if cur_y + card_h > BOTTOM_Y:
-                pdf.add_page()
-                cur_y = TOP_Y
+            # Fixed height to ensure 3 per page exactly
+            card_h = CARD_H
+            img_h = IMG_H
 
             # ── 1. Draw card background (FIRST) ─────────────────
             pdf.set_fill_color(248, 249, 252)
@@ -1484,7 +1465,9 @@ def generate_pdf_report(products_list):
                 
                 pdf.set_font('Helvetica', '', 8)
                 pdf.set_text_color(60, 70, 100)
-                for sline in spec_lines:
+
+                # Avoid running out of card height. Cap max lines displayed to 6 for 82mm block
+                for sline in spec_lines[:6]:
                     pdf.set_xy(TEXT_X + 22, ty)
                     pdf.cell(TEXT_W - 22, 4, sline, border=0)
                     ty += 4.5
@@ -1530,7 +1513,7 @@ def generate_pdf_report(products_list):
         return bytes(pdf_bytes)
 
     except ImportError:
-        # Fallback HTML
+        # Fallback HTML (Removed all branding)
         rows = ""
         for p in products_list:
             name      = p.get('product_name', 'Unknown')
@@ -1570,7 +1553,7 @@ def generate_pdf_report(products_list):
             "<style>body{font-family:Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;}"
             "h1{background:#1a1a2e;color:white;padding:16px 24px;border-radius:10px;margin-bottom:20px;}"
             "table.main{width:100%;border-collapse:collapse;}</style></head>"
-            f"<body><h1>TEJAS IMPEX PVT. LTD. &mdash; Product Catalog</h1>"
+            f"<body><h1>PRODUCT DETAILS</h1>"
             f"<table class='main'>{rows}</table></body></html>"
         )
         return html.encode('utf-8')
